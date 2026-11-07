@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FOODORA — Online Food Delivery</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+    --primary: #635bff;
+    --dark: #111827;
+    --text: #1f2937;
+    --muted: #8b95a7;
+    --bg: #f7f8fc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+}
+
+.container {
+    max-width: 1250px;
+    margin: auto;
+    padding: 0 25px;
+}
+
+/* NAVBAR */
+
+header {
+    background: white;
+    border-bottom: 1px solid #edf0f5;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar {
+    height: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: 900;
+    color: var(--primary);
+    letter-spacing: -1.5px;
+}
+
+.logo span {
+    color: var(--dark);
+}
+
+.nav-links {
+    display: flex;
+    gap: 35px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #596273;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.login {
+    background: transparent;
+    font-weight: 700;
+    color: var(--dark);
+}
+
+.register {
+    background: var(--primary);
+    color: white;
+    padding: 13px 22px;
+    border-radius: 12px;
+    font-weight: 700;
+}
+
+/* HERO */
+
+.hero {
+    padding: 75px 0;
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 40px;
+}
+
+.badge {
+    display: inline-block;
+    background: #eeedff;
+    color: var(--primary);
+    padding: 10px 16px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: clamp(40px, 5vw, 65px);
+    line-height: 1.12;
+    font-weight: 900;
+    letter-spacing: -3px;
+    color: var(--dark);
+}
+
+.hero h1 span {
+    color: var(--primary);
+}
+
+.hero p {
+    color: var(--muted);
+    line-height: 1.8;
+    margin-top: 22px;
+    max-width: 480px;
+    font-size: 15px;
+}
+
+.search-box {
+    background: white;
+    padding: 9px;
+    border-radius: 15px;
+    display: flex;
+    max-width: 470px;
+    margin-top: 30px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.05);
+}
+
+.search-box input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    padding: 12px;
+    font-size: 14px;
+}
+
+.search-box button {
+    background: var(--primary);
+    color: white;
+    border-radius: 10px;
+    padding: 14px 22px;
+    font-weight: 700;
+}
+
+.hero-image {
+    height: 420px;
+    background: linear-gradient(135deg,#dcd9ff,#b4adff);
+    border-radius: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-image img {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 25px rgba(0,0,0,0.15));
+}
+
+.floating-card {
+    position: absolute;
+    bottom: 25px;
+    left: 20px;
+    background: white;
+    padding: 16px 22px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px #0001;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+/* SECTION */
+
+section {
+    padding: 55px 0;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.section-heading h2 {
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.section-heading a {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 13px;
+}
+
+/* CATEGORIES */
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    gap: 18px;
+}
+
+.category {
+    background: white;
+    border-radius: 18px;
+    text-align: center;
+    padding: 25px 10px;
+    transition: .3s;
+    border: 1px solid #f0f0f5;
+}
+
+.category:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px #0000000b;
+}
+
+.category .emoji {
+    font-size: 38px;
+    margin-bottom: 14px;
+}
+
+.category h4 {
+    font-size: 13px;
+    font-weight: 800;
+}
+
+/* RESTAURANTS */
+
+.restaurants {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 25px;
+}
+
+.restaurant {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: .3s;
+    border: 1px solid #edf0f5;
+}
+
+.restaurant:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px #0000000c;
+}
+
+.restaurant img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+}
+
+.restaurant-info {
+    padding: 20px;
+}
+
+.restaurant-info h3 {
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.restaurant-meta {
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.rating {
+    color: #ffae00;
+    font-weight: 800;
+}
+
+/* PRODUCTS */
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+}
+
+.product {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #edf0f5;
+}
+
+.product img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 18px;
+}
+
+.product-info h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.product-info p {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 15px;
+}
+
+.product-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price {
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.add-btn {
+    background: var(--primary);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+/* PROMO */
+
+.promo {
+    background: linear-gradient(120deg,#5148e5,#887cff);
+    border-radius: 25px;
+    padding: 55px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.promo h2 {
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 12px;
+}
+
+.promo p {
+    opacity: .8;
+    font-size: 14px;
+}
+
+.promo button {
+    background: white;
+    color: var(--primary);
+    padding: 15px 25px;
+    border-radius: 12px;
+    font-weight: 800;
+}
+
+/* FOOTER */
+
+footer {
+    background: #111827;
+    color: white;
+    padding: 55px 0 25px;
+    margin-top: 70px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 35px;
+}
+
+.footer-content h3 {
+    margin-bottom: 20px;
+}
+
+.footer-content p,
+.footer-content a {
+    color: #9ca3af;
+    font-size: 13px;
+    line-height: 2.2;
+    display: block;
+}
+
+.copyright {
+    text-align: center;
+    border-top: 1px solid #293244;
+    margin-top: 40px;
+    padding-top: 25px;
+    color: #788398;
+    font-size: 12px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 850px) {
+
+    .nav-links {
+        display: none;
+    }
+
+    .hero-content {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-image {
+        height: 320px;
+    }
+
+    .categories {
+        grid-template-columns: repeat(3,1fr);
+    }
+
+    .restaurants {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .products {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .footer-content {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media(max-width: 500px) {
+
+    .navbar {
+        height: 70px;
+    }
+
+    .logo {
+        font-size: 23px;
+    }
+
+    .nav-actions {
+        gap: 8px;
+    }
+
+    .login {
+        font-size: 12px;
+    }
+
+    .register {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    .hero {
+        padding: 45px 0;
+    }
+
+    .hero h1 {
+        letter-spacing: -2px;
+    }
+
+    .categories {
+        gap: 10px;
+    }
+
+    .category {
+        padding: 18px 5px;
+    }
+
+    .restaurants {
+        grid-template-columns: 1fr;
+    }
+
+    .promo {
+        padding: 30px 22px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .promo h2 {
+        font-size: 25px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="container navbar">
+
+    <a href="#" class="logo">FOOD<span>ORA.</span></a>
+
+    <nav class="nav-links">
+        <a href="#">Bosh sahifa</a>
+        <a href="#categories">Kategoriyalar</a>
+        <a href="#restaurants">Restoranlar</a>
+        <a href="#popular">Mashhur taomlar</a>
+    </nav>
+
+    <div class="nav-actions">
+        <button class="login">Kirish</button>
+        <button class="register">Ro‘yxatdan o‘tish</button>
+    </div>
+
+</div>
+</header>
+
+
+<main>
+
+<!-- HERO -->
+
+<div class="container hero">
+
+<div class="hero-content">
+
+    <div>
+
+        <span class="badge">🍔 ONLINE FOOD DELIVERY</span>
+
+        <h1>
+            Sevimli taomingiz
+            <span>bir zumda</span>
+            eshigingizda.
+        </h1>
+
+        <p>
+            O‘zingizga yaqin restoranlarni kashf eting,
+            sevimli taomlaringizni tanlang va ularni
+            uyingizgacha yetkazib beramiz.
+        </p>
+
+        <div class="search-box">
+            <input type="text" placeholder="Restoran yoki taom qidiring...">
+            <button onclick="searchFood()">Qidirish</button>
+        </div>
+
+    </div>
+
+    <div class="hero-image">
+
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900"
+             alt="Delicious food">
+
+        <div class="floating-card">
+            ⭐ 4.9 / 5.0 — Mijozlar reytingi
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+
+<!-- CATEGORIES -->
+
+<section id="categories">
+
+<div class="container">
+
+    <div class="section-heading">
+        <h2>Kategoriyalar</h2>
+        <a href="#">Barchasini ko‘rish →</a>
+    </div>
+
+    <div class="categories">
+
+        <div class="category">
+            <div class="emoji">🍕</div>
+            <h4>Pitsa</h4>
+        </div>
+
+        <div class="category">
+            <div class="emoji">🍔</div>
+            <h4>Fast Food</h4>
+        </div>
+
+        <div class="category">
+            <div class="emoji">🍜</div>
+            <h4>Milliy taomlar</h4>
+        </div>
+
+        <div class="category">
+            <div class="emoji">🍣</div>
+            <h4>Sushi</h4>
+        </div>
+
+        <div class="category">
+            <div class="emoji">🥗</div>
+            <h4>Salatlar</h4>
+        </div>
+
+        <div class="category">
+            <div class="emoji">🍰</div>
+            <h4>Desertlar</h4>
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- RESTAURANTS -->
+
+<section id="restaurants">
+
+<div class="container">
+
+    <div class="section-heading">
+        <h2>Mashhur restoranlar</h2>
+        <a href="#">Barchasini ko‘rish →</a>
+    </div>
+
+    <div class="restaurants">
+
+        <div class="restaurant">
+
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800">
+
+            <div class="restaurant-info">
+                <h3>Italian Pizza House</h3>
+
+                <div class="restaurant-meta">
+                    <span class="rating">★ 4.9</span>
+                    <span>20–30 daqiqa</span>
+                    <span>🍕 Pizza</span>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="restaurant">
+
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800">
+
+            <div class="restaurant-info">
+                <h3>Royal Restaurant</h3>
+
+                <div class="restaurant-meta">
+                    <span class="rating">★ 4.8</span>
+                    <span>25–35 daqiqa</span>
+                    <span>🍽️ Milliy</span>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="restaurant">
+
+            <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800">
+
+            <div class="restaurant-info">
+                <h3>Burger Premium</h3>
+
+                <div class="restaurant-meta">
+                    <span class="rating">★ 4.7</span>
+                    <span>15–25 daqiqa</span>
+                    <span>🍔 Burger</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- PRODUCTS -->
+
+<section id="popular">
+
+<div class="container">
+
+    <div class="section-heading">
+        <h2>Eng ko‘p buyurtma qilingan</h2>
+        <a href="#">Barchasini ko‘rish →</a>
+    </div>
+
+    <div class="products">
+
+        <div class="product">
+
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600">
+
+            <div class="product-info">
+                <h3>Premium Pizza</h3>
+                <p>Maxsus pishloq va yangi mahsulotlar</p>
+
+                <div class="product-bottom">
+                    <span class="price">75 000 so‘m</span>
+                    <button class="add-btn" onclick="addCart('Premium Pizza')">+</button>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="product">
+
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600">
+
+            <div class="product-info">
+                <h3>Classic Burger</h3>
+                <p>Mol go‘shti va maxsus sous</p>
+
+                <div class="product-bottom">
+                    <span class="price">45 000 so‘m</span>
+                    <button class="add-btn" onclick="addCart('Classic Burger')">+</button>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="product">
+
+            <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600">
+
+            <div class="product-info">
+                <h3>Milliy Osh</h3>
+                <p>An'anaviy o‘zbek palovi</p>
+
+                <div class="product-bottom">
+                    <span class="price">35 000 so‘m</span>
+                    <button class="add-btn" onclick="addCart('Milliy Osh')">+</button>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="product">
+
+            <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600">
+
+            <div class="product-info">
+                <h3>Asian Noodles</h3>
+                <p>Maxsus sousli noodlel</p>
+
+                <div class="product-bottom">
+                    <span class="price">40 000 so‘m</span>
+                    <button class="add-btn" onclick="addCart('Asian Noodles')">+</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- PROMO -->
+
+<section>
+
+<div class="container">
+
+    <div class="promo">
+
+        <div>
+            <h2>Yangi mijozlar uchun maxsus taklif!</h2>
+
+            <p>
+                Birinchi buyurtmangizda 20% chegirmaga ega bo‘ling.
+            </p>
+        </div>
+
+        <button onclick="alert('Tez orada!')">
+            Buyurtma berish →
+        </button>
+
+    </div>
+
+</div>
+</section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="container">
+
+    <div class="footer-content">
+
+        <div>
+            <h2 class="logo">FOOD<span style="color:white">ORA.</span></h2>
+
+            <p>
+                Sevimli taomlaringizni oson,
+                tez va qulay buyurtma qiling.
+                Biz sizning vaqtingizni qadrlaymiz.
+            </p>
+        </div>
+
+        <div>
+            <h3>Platforma</h3>
+            <a href="#">Bosh sahifa</a>
+            <a href="#">Restoranlar</a>
+            <a href="#">Kategoriyalar</a>
+        </div>
+
+        <div>
+            <h3>Yordam</h3>
+            <a href="#">FAQ</a>
+            <a href="#">Aloqa</a>
+            <a href="#">Yetkazib berish</a>
+        </div>
+
+        <div>
+            <h3>Ijtimoiy tarmoqlar</h3>
+            <a href="#">Telegram</a>
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        © 2026 FOODORA. All rights reserved.
+    </div>
+
+</div>
+
+</footer>
+
+
+<script>
+
+function addCart(name) {
+    alert(name + " savatga qo‘shildi!");
+}
+
+function searchFood() {
+    let value = document.querySelector(".search-box input").value;
+
+    if(value.trim() === "") {
+        alert("Qidirish uchun taom nomini yozing!");
+    } else {
+        alert("Siz qidirgan mahsulot: " + value);
+    }
+}
+
+</script>
+
+</body>
+</html>
